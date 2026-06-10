@@ -1,9 +1,13 @@
 {
   "name": "bi-skills",
+  "owner": {
+    "name": "Agnes Jiang"
+  },
   "plugins": [
     {
       "name": "medallion-architecture",
-      "path": ".github/skills/medallion-architecture"
+      "source": "./.github/skills/medallion-architecture",
+      "description": "Medallion architecture skill for BI"
     }
   ]
 }
