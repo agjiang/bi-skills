@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "medallion-architecture",
-      "source": "./.github/skills/medallion-architecture",
+      "source": "./.github/bi-skills/skills/medallion-architecture",
       "description": "Medallion architecture skill for BI"
     }
   ]
