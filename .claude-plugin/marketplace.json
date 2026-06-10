@@ -1,12 +1,12 @@
 {
-  "name": "bi-skills",
+  "name": "bi-ai-foundation-skills",
   "owner": {
     "name": "Agnes Jiang"
   },
   "plugins": [
     {
-      "name": "bi-skills",
-      "source": "./.github/bi-skills",
+      "name": "bi-ai-foundation-skills",
+      "source": "./.github/bi-ai-foundation-skills",
       "description": "Collection of BI skills for AI foundation work"
     }
   ]
