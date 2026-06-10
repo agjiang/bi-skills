@@ -5,9 +5,9 @@
   },
   "plugins": [
     {
-      "name": "medallion-architecture",
-      "source": "./.github/bi-skills/skills/medallion-architecture",
-      "description": "Medallion architecture skill for BI"
+      "name": "bi-skills",
+      "source": "./.github/bi-skills",
+      "description": "Collection of BI skills for AI foundation work"
     }
   ]
 }
