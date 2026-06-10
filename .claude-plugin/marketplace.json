@@ -1,13 +1,13 @@
 {
-  "name": "bi-skills",
+  "name": "bi-ai-foundation-skills",
   "owner": {
     "name": "Agnes Jiang"
   },
   "plugins": [
     {
-      "name": "medallion-architecture",
-      "source": "./.github/bi-skills/skills/medallion-architecture",
-      "description": "Medallion architecture skill for BI"
+      "name": "bi-ai-foundation-skills",
+      "source": "./.github/bi-ai-foundation-skills",
+      "description": "Collection of BI skills for AI foundation work"
     }
   ]
 }
