@@ -1,8 +1,9 @@
 {
+  "name": "bi-skills",
   "plugins": [
     {
       "name": "medallion-architecture",
-      "path": "."
+      "path": ".github/skills/medallion-architecture"
     }
   ]
 }
