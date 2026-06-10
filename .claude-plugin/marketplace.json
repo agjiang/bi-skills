@@ -1,0 +1,8 @@
+{
+  "plugins": [
+    {
+      "name": "medallion-architecture",
+      "path": "."
+    }
+  ]
+}
