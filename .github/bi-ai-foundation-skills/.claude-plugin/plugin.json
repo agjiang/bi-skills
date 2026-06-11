@@ -2,5 +2,5 @@
   "name": "bi-ai-foundation-skills",
   "version": "1.0.0",
   "description": "Collection of BI skills for AI foundation work",
-  "type": "skill"
+  "type": "collection"
 }
