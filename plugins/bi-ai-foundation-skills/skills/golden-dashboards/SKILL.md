@@ -36,33 +36,38 @@ page). Capture the workbook title.
 Call `POST /vizportal/api/web/v1/getWorkbooks` with the `X-XSRF-TOKEN` cookie header and filter
 by workbook ID (from the URL). Extract:
 - `luid`, `id`, `name`, `repositoryUrl`, `downloadUrl`
-- `ownerId`, owner display name and email (from the `users` array)
+- `ownerId`, owner display name (from the `users` array)
 - `defaultViewUrl`, `sheetCount`, `hasExtracts`
 - Project name (from the `projects` array)
 
-### Step 3 — Download and parse the `.twb`
+### Step 3 — Get published views
+
+Call `POST /vizportal/api/web/v1/getViews` filtered by `workbookId`. This is the authoritative
+list of published tabs — use `sheetCount` from Step 2 to verify the count. Use the view names
+(not dashboard names from the TWB) when describing the dashboard.
+
+### Step 4 — Download and parse the `.twb`
 
 Fetch `https://<SERVER>/t/<SITE>/workbooks/<RepositoryUrl>.twb` in-page using `browser_evaluate`
-with the XSRF token. Start in the background (`window.__twbRaw`), poll for completion.
+with the XSRF token. Store in `window.__twbRaw`.
 
-Parse the XML with `DOMParser`:
+Check the first 4 bytes: if they start with `PK` the file is a `.twbx` (ZIP). In that case,
+skip XML parsing and fall back to Step 4b.
+
+If it is plain XML, parse with `DOMParser`:
 - `relation[type="text"]` → Custom SQL queries
 - `relation[type="table"]` → plain table references (`[DB].[SCHEMA].[TABLE]` format)
 - `connection:not([class="federated"])` → Snowflake connection details
 - `column > calculation[formula]` → calculated fields
 
-### Step 4 — Get viz structure (light skim for description)
-
-Navigate to the default view and read aria-labels from the viz iframe:
-- `[aria-label]` matching `/Data Visualization|chart of/i` → viz type and measure
-- `h1,h2,h3` → sheet title and filter names
-
-For multi-sheet workbooks, switch tabs using the full mouse event sequence
-(`pointerdown`, `mousedown`, `pointerup`, `mouseup`, `click`) dispatched on the tab element.
+**Step 4b — TWBX fallback:** Call `POST /vizportal/api/web/v1/getDatasources` filtered by
+`workbookId` to get data source names and connection types. Use the `name` field of each
+datasource to infer the underlying dbt models (e.g. "(BI) ClassPass Daily User Counts" →
+`stg_cp_bi_derived__daily_user_counts`).
 
 ### Step 5 — Map physical tables to dbt models
 
-For each physical table found in the SQL or table relations, resolve the dbt reference in order
+For each physical table or published data source found, resolve the dbt reference in order
 of preference:
 
 1. **Mart model** (`ref('model_name')`) — preferred; use the future source of truth if one exists
@@ -100,16 +105,21 @@ exposures:
       # add more ref() / source() entries as needed
     owner:
       name: <Display Name>
-      email: <username>@playlist.com
+      email: <firstname>.<lastname>@playlist.com
 ```
 
 ## Conventions
 
-- **Owner email:** always `<whoami>@playlist.com` — never use `@mindbodyonline.com` or whatever
-  Tableau shows for the owner.
-- **Description style:** focus on the business goal and key information — what the dashboard
-  answers, who uses it, the core measure(s), and available filters. Do not mention Snowflake
-  connection details, warehouse names, database/schema paths, or extract vs. live status.
+- **Owner:** use the Tableau workbook owner's display name (from the `users` array in the
+  VizPortal API). Derive their email as `firstname.lastname@playlist.com`. Never use
+  `@mindbodyonline.com` (what Tableau stores) and never use `whoami@playlist.com` (that is the
+  person running the skill, not the dashboard owner).
+- **Description style:** describe what the dashboard shows and the core measures and filters.
+  Do not say "Published view:" or "Published views:" — just describe the content directly. Do
+  not mention Snowflake connection details, warehouse names, database/schema paths, or extract
+  vs. live status. Do not infer geography or meaning from workbook name abbreviations (e.g. "ZA"
+  in a workbook name is not necessarily a country code — describe only what is observable in
+  the view names and field names).
 - **`depends_on`:** prefer mart `ref()` over staging `ref()` over `source()`. When the team is
   migrating a table to a new dbt model, point to the future model, not the old source.
 - **No data values:** never extract or document actual data from the viz — structure and logic only.
