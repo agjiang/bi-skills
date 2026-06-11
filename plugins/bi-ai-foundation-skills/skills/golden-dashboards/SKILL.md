@@ -1,6 +1,6 @@
 ---
 name: golden-dashboards
-description: Reverse-engineer a Tableau Cloud workbook and write a dbt exposures YAML entry into the appropriate mart folder.
+description: Reverse-engineer a Tableau Cloud workbook and write a dbt exposures YAML entry into the appropriate mart folder. Use when the user provides a Tableau URL and says things like "create a dbt exposure for <url>", "document this dashboard", "stamp this dashboard golden", or "add this Tableau workbook to dbt". Only trigger when a Tableau URL is provided.
 license: MIT
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: medallion-architecture
-description: Promote a dbt marts model to "gold" status by stamping ownership metadata and enforcing its grain with strict tests. Use only when user explicitly names specific tables to stamp gold.
+description: Stamp a dbt marts model as gold tier — adds owner metadata and strict grain tests. Use when the user says things like "apply medallion architecture to <model>", "mark <model> gold", "stamp <model> gold", "add me as owner and gold medallion to <model>", or "promote <model> to gold". Only trigger when the user explicitly names a specific table.
 license: MIT
 ---
 
