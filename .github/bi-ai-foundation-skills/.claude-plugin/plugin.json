@@ -2,5 +2,15 @@
   "name": "bi-ai-foundation-skills",
   "version": "1.0.0",
   "description": "Collection of BI skills for AI foundation work",
-  "type": "collection"
+  "type": "collection",
+  "skills": [
+    {
+      "name": "medallion-architecture",
+      "path": "./skills/medallion-architecture/SKILL.md"
+    },
+    {
+      "name": "golden-dashboards",
+      "path": "./skills/golden-dashboards/SKILL.md"
+    }
+  ]
 }
