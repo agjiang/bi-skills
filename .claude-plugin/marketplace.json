@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "bi-ai-foundation-skills",
-      "source": "./.github/bi-ai-foundation-skills",
+      "source": "./plugins/bi-ai-foundation-skills",
       "description": "Collection of BI skills for AI foundation work"
     }
   ]
