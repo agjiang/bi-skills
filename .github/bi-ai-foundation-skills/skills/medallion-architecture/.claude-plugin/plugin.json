@@ -1,0 +1,1 @@
+{"name": "medallion-architecture", "version": "1.0.0", "description": "Promote a dbt marts model to gold status by stamping ownership metadata and enforcing its grain with strict tests at severity error.", "type": "skill"}

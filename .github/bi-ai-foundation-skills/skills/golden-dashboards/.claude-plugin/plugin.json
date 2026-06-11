@@ -1,0 +1,1 @@
+{"name": "golden-dashboards", "version": "1.0.0", "description": "Reverse-engineer a Tableau Cloud workbook and write a dbt exposures YAML entry into the appropriate mart folder.", "type": "skill"}
