@@ -1,3 +1,9 @@
+---
+name: golden-dashboards
+description: Reverse-engineer a Tableau Cloud workbook and write a dbt exposures YAML entry into the appropriate mart folder.
+license: MIT
+---
+
 # Golden Dashboard Skill
 
 Reverse-engineer a Tableau Cloud workbook and write a dbt `exposures:` YAML entry into the
